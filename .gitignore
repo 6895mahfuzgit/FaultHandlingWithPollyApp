@@ -1,0 +1,13 @@
+*/obj/*
+*/bin/*
+*/vs/*
+
+*.vs/
+*.vs/
+*/bin/*
+*/obj/*
+*/bin/*
+*/obj/*
+*/bin/Debug/*
+
+*/.vs/*
