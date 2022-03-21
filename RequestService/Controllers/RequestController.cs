@@ -7,5 +7,11 @@ namespace RequestService.Controllers
     [ApiController]
     public class RequestController : ControllerBase
     {
+
+        [HttpGet]
+        public async Task<ActionResult> MakeRequest()
+        {
+            return Ok();
+        }
     }
 }
