@@ -11,7 +11,26 @@ namespace RequestService.Controllers
         [HttpGet]
         public async Task<ActionResult> MakeRequest()
         {
-            return Ok();
+            try
+            {
+
+                var client = new HttpClient();
+                var response = await client.GetAsync("https://localhost:7027/api/Response/100");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("<-----  Response returned SUCCESS. ----->");
+                    return Ok();
+                }
+
+                Console.WriteLine("<-----  Response returned FAILED.   ----->");
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }
