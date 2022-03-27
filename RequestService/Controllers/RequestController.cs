@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RequestService.Policies;
 
 namespace RequestService.Controllers
 {
@@ -7,6 +8,12 @@ namespace RequestService.Controllers
     [ApiController]
     public class RequestController : ControllerBase
     {
+        private readonly ClientPolicy _policy;
+
+        public RequestController(ClientPolicy policy)
+        {
+            _policy = policy;
+        }
 
         [HttpGet]
         public async Task<ActionResult> MakeRequest()
@@ -15,7 +22,12 @@ namespace RequestService.Controllers
             {
 
                 var client = new HttpClient();
-                var response = await client.GetAsync("https://localhost:7027/api/Response/100");
+                //var response = await client.GetAsync("https://localhost:7027/api/Response/100");
+
+                var response = await _policy.ImmidiateHttpPolicy.ExecuteAsync(
+                                            () =>
+                                            client.GetAsync("https://localhost:7027/api/Response/25")
+                                            );
 
                 if (response.IsSuccessStatusCode)
                 {
