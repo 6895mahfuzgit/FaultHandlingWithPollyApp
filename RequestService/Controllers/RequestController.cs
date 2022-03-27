@@ -27,7 +27,7 @@ namespace RequestService.Controllers
                 //var response = await client.GetAsync("https://localhost:7027/api/Response/100");
 
                 var client = _httpClientFactory.CreateClient();
-                var response = await _policy.ExponentialHttpPolicy.ExecuteAsync(
+                var response = await _policy.ImmidiateHttpPolicy.ExecuteAsync(
                                             () =>
                                             client.GetAsync("https://localhost:7027/api/Response/25")
                                             );
