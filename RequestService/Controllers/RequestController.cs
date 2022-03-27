@@ -9,10 +9,12 @@ namespace RequestService.Controllers
     public class RequestController : ControllerBase
     {
         private readonly ClientPolicy _policy;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public RequestController(ClientPolicy policy)
+        public RequestController(ClientPolicy policy, IHttpClientFactory httpClientFactory)
         {
             _policy = policy;
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpGet]
@@ -21,9 +23,10 @@ namespace RequestService.Controllers
             try
             {
 
-                var client = new HttpClient();
+                //var client = new HttpClient();
                 //var response = await client.GetAsync("https://localhost:7027/api/Response/100");
 
+                var client = _httpClientFactory.CreateClient();
                 var response = await _policy.ExponentialHttpPolicy.ExecuteAsync(
                                             () =>
                                             client.GetAsync("https://localhost:7027/api/Response/25")
