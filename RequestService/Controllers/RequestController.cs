@@ -8,12 +8,12 @@ namespace RequestService.Controllers
     [ApiController]
     public class RequestController : ControllerBase
     {
-        private readonly ClientPolicy _policy;
+        //private readonly ClientPolicy _policy;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public RequestController(ClientPolicy policy, IHttpClientFactory httpClientFactory)
+        public RequestController(IHttpClientFactory httpClientFactory) //ClientPolicy policy,
         {
-            _policy = policy;
+            //_policy = policy;
             _httpClientFactory = httpClientFactory;
         }
 
@@ -26,11 +26,13 @@ namespace RequestService.Controllers
                 //var client = new HttpClient();
                 //var response = await client.GetAsync("https://localhost:7027/api/Response/100");
 
-                var client = _httpClientFactory.CreateClient();
-                var response = await _policy.ImmidiateHttpPolicy.ExecuteAsync(
-                                            () =>
-                                            client.GetAsync("https://localhost:7027/api/Response/25")
-                                            );
+                var client = _httpClientFactory.CreateClient("Test");
+                var response = await client.GetAsync("https://localhost:7027/api/Response/100");
+
+                //var response = await _policy.ImmidiateHttpPolicy.ExecuteAsync(
+                //                            () =>
+                //                            client.GetAsync("https://localhost:7027/api/Response/25")
+                //                            );
 
                 if (response.IsSuccessStatusCode)
                 {
