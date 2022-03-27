@@ -26,7 +26,7 @@ namespace RequestService.Controllers
                 //var client = new HttpClient();
                 //var response = await client.GetAsync("https://localhost:7027/api/Response/100");
 
-                var client = _httpClientFactory.CreateClient("Test");
+                var client = _httpClientFactory.CreateClient("Test" );
                 var response = await client.GetAsync("https://localhost:7027/api/Response/100");
 
                 //var response = await _policy.ImmidiateHttpPolicy.ExecuteAsync(
